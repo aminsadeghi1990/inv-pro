@@ -32,7 +32,7 @@ class InvoiceForm(forms.ModelForm):
 
     class Meta:
         model=invoice
-        field = ['title', 'number' , 'dueDate' , 'paymentTerms', 'status' , 'notes', 'client', 'product']
+        field = ['title', 'number' , 'dueDate' , 'paymentTerms', 'status' , 'notes']
 
 class SettingsForm(forms.ModelForm):
     class Meta:
