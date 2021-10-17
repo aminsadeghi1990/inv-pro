@@ -13,7 +13,7 @@ from uuid import uuid4
 
 def anonymous_required(function=None, redirect_url=None):
     if not redirect_url:
-        redirect_url = 'dashboard'
+        redirect_url = 'index'
 
     actual_decorator = user_passes_test(
             lambda u: u.is_anonymous,
