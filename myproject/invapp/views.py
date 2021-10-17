@@ -55,3 +55,22 @@ def login(request):
 def dashboard(request):
     context = {}
     return render(request, 'invapp/dashboard.html', context)
+@login_required
+def invoices(request):
+    context = {}
+    return render(request, 'invapp/invoice.html', context)
+@login_required
+def products(request):
+    context = {}
+    return render(request, 'invapp/products.html', context)
+@login_required
+def clients(request):
+    context = {}
+    clients = Client.objects.all()
+    context['clients'] = clients
+
+    if request.method == 'GET'
+        form = ClientForm()
+        context['form'] = form
+        return render(request, 'invapp/clients.html', context)
+
