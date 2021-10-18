@@ -75,4 +75,35 @@ def clients(request):
         form = ClientForm()
         context['form'] = form
         return render(request, 'invapp/clients.html', context)
+@login_required
+def logout(request):
+    auth.logout(request)
+    return redirect('login')
+@login_required
+def createInvoice(request):
+    number = 'INVNUM'+str(uuid4()).split('-')[1]
+    newInvoice = Invoice.object.create(number=number)
+    newInvoice.save()
+    inv = Invoice.objects.get(nimber = number)
+    return redirect(request, 'invapp/create-invoice.html')
+       
+   
+def createBuildInvoice(request, slug):
+    try:
+        invoice = Invoice.objects.get(slug=slug)
+    except:
+        message.error(request, 'called object not found!!')
+        return redirect('invoices')
+    products = Product.objects.filter(invoice=invoice)
+
+    context = {}
+    context['invoice'] = invoice
+    context['products'] = products
+    if request.method == 'GET':
+         prod_form = ProductForm()
+         inv_form = InvoiceForm()
+         context['prod_form'] = prod_form
+         context['inv_form'] = prod_form
+         return redirect(request, 'invapp/create-build-invoice.html', context)
+   return render(request, 'invoice/create-invoice.html', context)
 
