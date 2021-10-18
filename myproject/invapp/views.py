@@ -62,6 +62,8 @@ def invoices(request):
 @login_required
 def products(request):
     context = {}
+    products = Product.objects.all()
+    context['products'] = products
     return render(request, 'invapp/products.html', context)
 @login_required
 def clients(request):
